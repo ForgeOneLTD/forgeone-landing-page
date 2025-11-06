@@ -58,6 +58,7 @@
 		<a id="tf-hidden-project-trigger"
 		data-tf-popup="TDqtHr87"
 		data-tf-size="70"
+		data‑tf‑on‑submit="onCompletedForm"
 		data-tf-hide-headers
 		data-tf-hide-footer
 		data-tf-auto-close
@@ -192,6 +193,15 @@
 				}
 			}
 
+			window.addEventListener("message", function(event) {
+				if (event.data && event.data.type === "form-submit") {
+					gtag('event', 'conversion', {
+						'send_to': 'AW-17604511323/i8J8CPmn2qIbENuMvspB',
+						'value': 1.0,
+						'currency': 'GBP'
+					});
+				}
+			});
 
 			function updatePricing() {
 			$("p.framer-text:contains('£')").each(function () {
