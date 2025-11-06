@@ -29,9 +29,67 @@
 		<link rel="canonical" href="https://forgeone.co/index.html">
 		<meta property="og:url" content="https://forgeone.co/">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+		<!-- Cal element-click embed code begins -->
+		<script type="text/javascript">
+		(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+		Cal("init", "30min", {origin:"https://app.cal.com"});
+
+		
+		// Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
+		// `data-cal-link="forgeone/30min"`
+		// data-cal-namespace="30min"
+		// `data-cal-config='{"layout":"month_view"}'`
+
+		Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+		</script>
+		<!-- Cal element-click embed code ends -->
+		
+
 		<script>
 
-			function UpdateInteractions() {
+			function updateCalendar() {
+				$('a[href="https://cal.com/forgeone/30min?overlayCalendar=true"]').each(function () {
+					$(this)
+						.attr('href', null)
+						.attr('data-cal-link', 'forgeone/30min')
+						.attr('data-cal-namespace', '30min')
+						.attr('data-cal-config', JSON.stringify({ layout: "month_view" }));
+				});
+			}
+
+			function subscribeToEmail() {
+				// $('form').each(function (index, formElement) {
+				// 	const $form = $(formElement);
+
+				// 	// Inject Web3Forms attributes
+				// 	$form.attr('action', 'https://api.web3forms.com/submit');
+				// 	$form.attr('method', 'POST');
+
+				// 	// Inject required hidden fields if not present
+				// 	if ($form.find('input[name="access_key"]').length === 0) {
+				// 		$form.prepend('<input type="hidden" name="access_key" value="a5e3cf1e-0e8d-4ad5-a0ca-039786b4b63c">');
+				// 	}
+				// 	if ($form.find('input[name="subject"]').length === 0) {
+				// 		$form.prepend('<input type="hidden" name="subject" value="New Email Subscriber">');
+				// 	}
+				// 	if ($form.find('input[name="from_name"]').length === 0) {
+				// 		$form.prepend('<input type="hidden" name="from_name" value="ForgeOne.co">');
+				// 	}
+
+				// 	// Handle form submission feedback
+				// 	$form.on('submit', function () {
+				// 		const $submitBtn = $(this).find('input[type="submit"]');
+
+				// 		// Disable the button and change text
+				// 		$submitBtn.val('Sent ✅').prop('disabled', true);
+				// 	});
+				// });
+			}
+
+
+			function updateInteractions() {
 				const links = [
 					"https://www.behance.net/muslakov",
 					"https://twitter.com/nurpraditya/status/1684912547705843714?s=46",
@@ -64,12 +122,16 @@
 			// Initial attach
 			$(document).ready(function () {
 				attachMailtoClick();
-				UpdateInteractions();
+				updateInteractions();
+				// subscribeToEmail();
+				updateCalendar();
 
 				// Watch for DOM changes
 				const observer = new MutationObserver(() => {
-				attachMailtoClick();
-				UpdateInteractions();
+					attachMailtoClick();
+					updateInteractions();
+					// subscribeToEmail();
+					updateCalendar();
 				});
 
 				observer.observe(document.body, {
