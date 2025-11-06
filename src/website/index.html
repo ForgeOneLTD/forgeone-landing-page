@@ -40,9 +40,9 @@
 		// Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
 		// `data-cal-link="forgeone/30min"`
 		// data-cal-namespace="30min"
-		// `data-cal-config='{"layout":"month_view"}'`
+		// `data-cal-config='{"layout":"month_view","theme":"dark"}'`
 
-		Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+		Cal.ns["30min"]("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
 		</script>
 		<!-- Cal element-click embed code ends -->
 		
@@ -110,11 +110,16 @@
 				if ($btn.length && !$btn.data("mailto-bound")) {
 					$btn.data("mailto-bound", true);
 
-					$btn.on("click", function (e) {
-						e.preventDefault();
-						window.location.href = "mailto:hello@forgeone.co";
-					});
+					// Replace href directly with mailto
+					$btn.attr("href", "mailto:hello@forgeone.co");
 
+					// Optional: override click to prevent any other behavior
+					// $btn.on("click", function (e) {
+					// 	e.preventDefault();
+					// 	window.location.href = "mailto:hello@forgeone.co";
+					// });
+
+					// Update button label
 					$btn.find("p.framer-text").text("Contact Us");
 				}
 			}
