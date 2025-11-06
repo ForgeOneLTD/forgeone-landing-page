@@ -102,6 +102,7 @@
 				});
 			}
 
+
 			function attachMailtoClick() {
 				const $btn = $("a:contains('Learn More')").filter(function () {
 					return $(this).text().trim() === "Learn More";
@@ -114,15 +115,16 @@
 					$btn.attr("href", "mailto:hello@forgeone.co");
 
 					// Optional: override click to prevent any other behavior
-					// $btn.on("click", function (e) {
-					// 	e.preventDefault();
-					// 	window.location.href = "mailto:hello@forgeone.co";
-					// });
+					$btn.on("click", function (e) {
+						e.preventDefault();
+						window.location.href = "mailto:hello@forgeone.co";
+					});
 
 					// Update button label
 					$btn.find("p.framer-text").text("Contact Us");
 				}
 			}
+
 
 			// Initial attach
 			$(document).ready(function () {
