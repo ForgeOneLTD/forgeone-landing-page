@@ -158,12 +158,21 @@
 			}
 
 
+			function updatePricing() {
+			$("p.framer-text:contains('£')").each(function () {
+				const $el = $(this);
+				const updatedText = $el.text().replace(/£/g, "$");
+				$el.text(updatedText);
+			});
+			}
+
 			// Initial attach
 			$(document).ready(function () {
 				attachMailtoClick();
 				updateInteractions();
 				// subscribeToEmail();
 				updateCalendar();
+				updatePricing();
 
 				// Watch for DOM changes
 				const observer = new MutationObserver(() => {
@@ -171,6 +180,7 @@
 					updateInteractions();
 					// subscribeToEmail();
 					updateCalendar();
+					updatePricing();
 				});
 
 				observer.observe(document.body, {
