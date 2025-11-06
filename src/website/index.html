@@ -73,6 +73,25 @@
 		(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 		Cal("init", "30min", {origin:"https://app.cal.com"});
 
+		// Cal("on", {
+		// 	action: "bookingSuccessfulV2",
+		// 	callback: function(e) {
+		// 	const { data, type, namespace } = e.detail;
+		// 		console.log("Cal.com embed event:", type, data, namespace);
+		// 		gtag('event', 'conversion', {
+		// 			'send_to': 'AW-17604511323/i8J8CPmn2qIbENuMvspB',
+		// 			'value': 1.0,
+		// 			'currency': 'GBP'
+		// 		});
+		// 	}
+		// });
+
+		// Cal("on", {
+		// action: "linkFailed",
+		// callback: (e) => {
+		// 	console.log("Embed failed:", e.detail);
+		// }
+		// });
 		
 		// Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
 		// `data-cal-link="forgeone/30min"`
@@ -80,8 +99,23 @@
 		// `data-cal-config='{"layout":"month_view","theme":"dark"}'`
 
 		Cal.ns["30min"]("ui", {"theme":"dark","hideEventTypeDetails":false,"layout":"month_view"});
+
+
+		Cal.ns["30min"]("on", {
+			action: "bookingSuccessful",
+			callback: function (e) {
+				console.log("Cal.com booking complete!", e.detail);
+				gtag('event', 'conversion', {
+				send_to: 'AW-17604511323/i8J8CPmn2qIbENuMvspB',
+				value: 1.0,
+				currency: 'GBP'
+				});
+			}
+		});
+
 		</script>
 		<!-- Cal element-click embed code ends -->
+		
 		
 
 		<script>
@@ -195,6 +229,7 @@
 
 			window.addEventListener("message", function(event) {
 				if (event.data && event.data.type === "form-submit") {
+					console.log("Typeform submitted, formId:", event.data.formId);
 					gtag('event', 'conversion', {
 						'send_to': 'AW-17604511323/i8J8CPmn2qIbENuMvspB',
 						'value': 1.0,
@@ -202,6 +237,7 @@
 					});
 				}
 			});
+
 
 			function updatePricing() {
 			$("p.framer-text:contains('£')").each(function () {
