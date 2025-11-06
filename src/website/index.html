@@ -55,6 +55,15 @@
 		style="display: none;">
 		</a>
 
+		<a id="tf-hidden-project-trigger"
+		data-tf-popup="TDqtHr87"
+		data-tf-size="70"
+		data-tf-hide-headers
+		data-tf-hide-footer
+		data-tf-auto-close
+		style="display: none;">
+		</a>
+
 		<!-- Type Form -->
 		<script src="https://embed.typeform.com/next/embed.js"></script>
 
@@ -128,33 +137,59 @@
 				});
 			}
 
-			function attachMailtoClick() {
-			const $btn = $("a:contains('Learn More')").filter(function () {
-				return $(this).text().trim() === "Learn More";
-			});
+			function attachProjectClick() {
+				const $btn = $("a:contains('Start Project')")
 
-			if ($btn.length && !$btn.data("tf-bound")) {
-				$btn.data("tf-bound", true);
+				if ($btn.length && !$btn.data("tf-bound")) {
+					$btn.data("tf-bound", true);
 
-				// Strip default behavior
-				$btn.removeAttr("href");
-				$btn.removeAttr("data-framer-name");
+					// Strip default behavior
+					$btn.removeAttr("href");
+					$btn.removeAttr("data-framer-name");
+					$btn.removeAttr("data-cal-link")
 
-				// Optional styling update
-				$btn.find("p.framer-text").text("Contact Us");
 
-				// Rebind click to trigger the hidden Typeform link
-				$btn.off("click").on("click", function (e) {
-				e.preventDefault();
+					$btn.off("click").on("click", function (e) {
+					e.preventDefault();
 
-				const $hiddenTrigger = $("#tf-hidden-trigger");
-				if ($hiddenTrigger.length) {
-					$hiddenTrigger[0].click();
-				} else {
-					console.warn("Hidden Typeform trigger not found.");
+					const $hiddenTrigger = $("#tf-hidden-project-trigger");
+					if ($hiddenTrigger.length) {
+						$hiddenTrigger[0].click();
+					} else {
+						console.warn("Hidden Typeform trigger not found.");
+					}
+
+					});
 				}
-				});
 			}
+
+			function attachMailtoClick() {
+				const $btn = $("a:contains('Learn More')").filter(function () {
+					return $(this).text().trim() === "Learn More";
+				});
+
+				if ($btn.length && !$btn.data("tf-bound")) {
+					$btn.data("tf-bound", true);
+
+					// Strip default behavior
+					$btn.removeAttr("href");
+					$btn.removeAttr("data-framer-name");
+
+					// Optional styling update
+					$btn.find("p.framer-text").text("Contact Us");
+
+					// Rebind click to trigger the hidden Typeform link
+					$btn.off("click").on("click", function (e) {
+					e.preventDefault();
+
+					const $hiddenTrigger = $("#tf-hidden-trigger");
+					if ($hiddenTrigger.length) {
+						$hiddenTrigger[0].click();
+					} else {
+						console.warn("Hidden Typeform trigger not found.");
+					}
+					});
+				}
 			}
 
 
@@ -173,6 +208,7 @@
 				// subscribeToEmail();
 				updateCalendar();
 				updatePricing();
+				attachProjectClick();
 
 				// Watch for DOM changes
 				const observer = new MutationObserver(() => {
@@ -181,6 +217,7 @@
 					// subscribeToEmail();
 					updateCalendar();
 					updatePricing();
+					attachProjectClick();
 				});
 
 				observer.observe(document.body, {
